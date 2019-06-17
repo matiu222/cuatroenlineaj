@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Tablero Cuatro en Linea</title>
         <style type="text/css">
@@ -44,7 +45,7 @@
                 color: #cccccc;
             }
             
-            .ui-diagram-element-ficha-azul {   
+            .ui-diagram-element-ficha-rojo {   
                 width:2em; 
                 height:2em;
                 line-height:1em;
@@ -52,7 +53,7 @@
                 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
                 border-radius: 2em;
                 border: 1px solid #404a4e;
-                background-color: blue;
+                background-color: red;
                 color: #cccccc;
             }
             .ui-diagram-element:hover {
@@ -64,7 +65,7 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <p:outputLabel value="#{cuatroBean.usuario.nombre}"/>
-                <p:outputLabel value="#{cuatroBean.usuario.color}"/>
+                <p:outputLabel value="#{cuatroBean.usuario.nombre}"/>
             </ui:insert>
         </div>
 
@@ -86,6 +87,12 @@
                     <c:forEach items="#{controladorCuatroEnLinea.boton}" var="item">
                         <p:commandButton value="#{item}" update="frmTableroJugadores" action="#{controladorCuatroEnLinea.accion(item, CuatroBean.usuario)}" />
                     </c:forEach>
+                     
+               
+                    <p:inputText id="numero" value="#{controladorCuatroEnLinea.numero}"  required="true">
+                    <f:validateLongRange minimum="1" maximum="#{controladorCuatroEnLinea.altoIntermedio}"/>
+                    </p:inputText>
+                <p:commandButton value="Multiplo" update="@all" ajax="false" action="#{controladorCuatroEnLinea.sustenacion()}"/>
                 </h:panelGroup>
 
 
@@ -93,10 +100,7 @@
                     <p:diagram id="tableroJugadores" value="#{controladorCuatroEnLinea.model}" style="height:1000px" styleClass="ui-widget-content" />
 
                 </h:panelGroup>
-                <h:form>
-                    <p:commandButton value="Habilitar Juego" update="@all" ajax="false" action="#{controladorCuatroEnLinea.activarJuego()}"/>
-                    
-                </h:form>
+             
 
             </h:panelGroup>
 

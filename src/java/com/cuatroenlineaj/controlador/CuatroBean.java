@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import org.primefaces.model.diagram.DefaultDiagramModel;
 
 /**
  *
@@ -28,7 +29,7 @@ public class CuatroBean implements Serializable {
     private Usuario usuario;
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+    private DefaultDiagramModel model;
 
     /**
      * Creates a new instance of ControladorJuegoCuatroenlinea
@@ -47,6 +48,14 @@ public class CuatroBean implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public DefaultDiagramModel getModel() {
+        return model;
+    }
+
+    public void setModel(DefaultDiagramModel model) {
+        this.model = model;
     }
     
 }

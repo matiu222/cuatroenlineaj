@@ -58,7 +58,7 @@ private int altoFichas = 6;
     private List boton;
     private boolean estadoJuego=false;
     private Date fichasSitema;
-    
+    private int numero;
     public ControladorCuatroEnLinea() {
         boton = new ArrayList<>();
     }
@@ -85,6 +85,7 @@ private int altoFichas = 6;
                 for (int j = 1; j <= ancho; j++) {
                     tablero.adicionarVertice(new Ficha(color, i, k));
                     Element ceo = new Element(tablero.getVertices().size(), x + "em", y + "em");
+                    ceo.setId(String.valueOf(tablero.getVertices().size()));
                     ceo.setDraggable(false);
                     ceo.setStyleClass(StyleColor);
                     ceo.addEndPoint(new BlankEndPoint(EndPointAnchor.CENTER));
@@ -145,6 +146,7 @@ private int altoFichas = 6;
     
         }
     }
+ 
  private EndPoint createEndPoint(EndPointAnchor anchor) {
         DotEndPoint endPoint = new DotEndPoint(anchor);
         endPoint.setStyle("{fillStyle:'#404a4e'}");
@@ -169,7 +171,7 @@ private int altoFichas = 6;
   
       while (numeroColumna+ancho<=tablero.getVertices().size()){
           
-          if(model.getElements().get(numeroColumna+ancho-1).getStyleClass().toString().compareTo("ui-diagram-element-grafo-blanco")==0){
+          if(model.getElements().get(numeroColumna+ancho-1).getStyleClass().toString().compareTo("ui-diagram-element-grafo-blanca")==0){
           
           
           numeroColumna=numeroColumna+ancho;
@@ -180,7 +182,7 @@ private int altoFichas = 6;
           
       }
   String nombre = idColor.getNombre();
-  model.getElements().get(numeroColumna-1).setStyleClass("ui-diagram-element-grafo-" + idColor.getColor());
+  model.getElements().get(numeroColumna-1).setStyleClass("ui-diagram-element-ficha-" + idColor.getColor());
   
   }
     public void onClickRight(){
@@ -190,6 +192,41 @@ private int altoFichas = 6;
         fichaClick = vertice.getId();
        
     }
+    
+    public void haciaAbajo()
+    {
+        for(Vertice vert: tablero.getVertices())
+        {
+            for(int  i =  vert.getId(); i <= ancho; i++){
+                        String styleColor ="ui-diagram-element-ficha-rojo";
+                        model.getElements().get(vert.getId()-1).setStyleClass(styleColor);
+            }
+        }
+    }
+    
+    public void sustenacion(){
+     for(Vertice vert : tablero.getVertices()){
+         while (vertice.getId() % altoIntermedio !=0 && vertice.getId() % altoFichas !=0) {
+             for(int i= vert.getId(); i <= altoIntermedio; altoIntermedio ++){
+                 if(vert.getId()% altoIntermedio !=0){
+                     altoIntermedio= altoIntermedio+1;
+                     
+                 String styleColor ="ui-diagram-element-ficha-rojo";
+                  model.getElements().get(vert.getId()-1).setStyleClass(styleColor);
+                  
+                 }else{
+                     
+                         
+                     
+                 }
+             }
+             
+            }
+         }
+         
+     }
+     
+ 
     
     
     public void pruebaMenu(){
@@ -267,4 +304,13 @@ private int altoFichas = 6;
         this.fichasSitema = fichasSitema;
     }
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    
 }
